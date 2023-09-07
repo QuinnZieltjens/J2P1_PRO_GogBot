@@ -7,8 +7,8 @@ namespace Game.Environment.Tile
     public class TileMovement
     {
         public Vector2Int Position { get; private set; }
-        private MonoLevel level;
-        private MonoTile tile;
+        private readonly MonoLevel level;
+        private readonly MonoTile tile;
 
 
         public TileMovement(MonoTile _tile, MonoLevel _level, Vector2Int _position)
@@ -16,6 +16,11 @@ namespace Game.Environment.Tile
             tile = _tile;
             level = _level;
             Position = _position;
+
+            //add this tile to the tileStack at the right position if it is not in that position
+            List<MonoTile> tileStack = level.GetTileStack(Position);
+            if (tileStack.Contains(_tile) == false)
+                tileStack.Add(_tile);
         }
 
         /// <summary>
@@ -40,8 +45,8 @@ namespace Game.Environment.Tile
                 moveToTile.Movement.Move(_relativePos); //move the tile with the same relative position as this tile
 
             //update the level
-            level.GetTileStack(newPos).Add(tile);
-            level.GetTileStack(Position).Remove(tile); //remove the current position from the list
+            level.GetTileStack(Position).Remove(tile); //remove the current position from the tile stack
+            level.GetTileStack(newPos).Add(tile); //add the tile at the new position to the tile stack
 
             //update the internal position
             Position = newPos;

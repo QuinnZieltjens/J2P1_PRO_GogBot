@@ -14,6 +14,10 @@ namespace Game.Environment.Tile
         private void Awake()
         {
             level = FindObjectOfType<MonoLevel>();
+        }
+
+        private void Start()
+        {
             Movement = new TileMovement(this, level, position);
             Properties = new TileProperties();
             Properties.AddProperties(tileProperties);

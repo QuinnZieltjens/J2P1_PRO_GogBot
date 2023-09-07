@@ -5,41 +5,24 @@ using Game.Environment.Tiles;
 
 namespace Game.Environment
 {
-    internal class Level
+    public class Level
     {
-        /// <summary>
-        /// sets the level size as a <see cref="Vector2Int"/>, x and y cannot be a value lower than 0
-        /// </summary>
-        public Vector2Int LevelSize
+        private readonly Vector2Int levelSize;               //the set level size as an integer 2D array
+        private readonly List<MonoTile>[,] objects;     //2D array of integer lists (readonly)
+
+        //constructor, 
+        public Level(Vector2Int _levelSize)
         {
-            get => levelSize; //just return levelSize on get
-            set
-            {
-                //throw an exception if the given size is less than 0
-                if (Util.IsMin(value.x, 0) || Util.IsMin(value.y, 0))
-                    throw new ArgumentException("level size cannot be set to a number lower than 0\n" +
-                        $"Attempted to set set level size to: {value}");
-                //set the level size to the value
-                levelSize = value;
-            }
-        }
+            //check whether X and Y are not less than 0, throw an exception if they are
+            if (_levelSize.x < 0 || _levelSize.y < 0) //if either X or Y are below 0
+                throw new ArgumentException("level size cannot be set to a number lower than 0\n" +
+                    $"Attempted to set set level size to: {_levelSize}");
+            
+            //set the level size to the value
+            levelSize = _levelSize;
 
-        private Vector2Int levelSize;   //the set level size as an integer 2D array
-        private List<Tile>[,] objects;   //2D array of integer lists (readonly)
-
-
-        public Level()
-        {
-            InitArray();
-        }
-
-        /// <summary>
-        /// builds the level in unity
-        /// </summary>
-        private void InitArray()
-        {
             //define the 2D array
-            objects = new List<Tile>[levelSize.x, levelSize.y];
+            objects = new List<MonoTile>[levelSize.x, levelSize.y];
 
             //loop through the X axis
             for (int x = 0; x < levelSize.x; x++)
@@ -48,17 +31,9 @@ namespace Game.Environment
                 for (int y = 0; y < levelSize.y; y++)
                 {
                     //define the list at position (x, y) in the 2D array
-                    objects[x, y] = new List<Tile>();
+                    objects[x, y] = new List<MonoTile>();
                 }
             }
-        }
-
-        /// <summary>
-        /// builds the level in unity
-        /// </summary>
-        public void Build()
-        {
-            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -79,7 +54,7 @@ namespace Game.Environment
         /// </summary>
         /// <param name="_position"></param>
         /// <returns>the list of the objects located at <paramref name="_position"/></returns>
-        public List<Tile> GetObjectsAt(Vector2Int _position)
+        public List<MonoTile> GetTileStack(Vector2Int _position)
         {
             //parse the position to 2 integers & check the integers if they are within the range
             int x = Util.Range(_position.x, 0, levelSize.x);

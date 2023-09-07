@@ -3,7 +3,7 @@ using System;
 namespace Game
 {
     [Flags]
-    internal enum TileProperty
+    public enum TileProperty
     {
         None = 0,
         Player = 1,

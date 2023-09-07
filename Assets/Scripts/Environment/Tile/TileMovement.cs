@@ -83,10 +83,7 @@ namespace Game.Environment.Tile
 
                 //checks whether the tile collides.
                 if (movedToTile.Properties.CheckProperties(TileProperty.Collides))
-                {
-                    canMove = false; //set canMove to false
-                    break; //don't bother to check more
-                }
+                    return false; //return false; tile can't move no matter what
             }
 
             //return the results

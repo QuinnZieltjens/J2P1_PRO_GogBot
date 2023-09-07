@@ -71,8 +71,9 @@ namespace Game.Environment
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.blue;
+            Vector3 centre = transform.position - new Vector3(0.5f, 0.5f);
             Vector3 cubeSize = new(levelSize.x, levelSize.y);
-            Gizmos.DrawWireCube(transform.position, cubeSize);
+            Gizmos.DrawWireCube(centre, cubeSize);
         }
     }
 }

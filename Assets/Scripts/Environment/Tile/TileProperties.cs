@@ -4,7 +4,7 @@ namespace Game.Environment.Tile
 {
     public class TileProperties
     {
-        private TileProperty properties;
+        private TileProperty properties = TileProperty.None;
 
         public void AddProperties(TileProperty _filter)
         {

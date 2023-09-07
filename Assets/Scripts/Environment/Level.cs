@@ -7,7 +7,7 @@ namespace Game.Environment
 {
     public class Level
     {
-        private readonly Vector2Int levelSize;               //the set level size as an integer 2D array
+        private readonly Vector2Int levelSize;          //the set level size as an integer 2D array (readonly)
         private readonly List<MonoTile>[,] objects;     //2D array of integer lists (readonly)
 
         //constructor, 

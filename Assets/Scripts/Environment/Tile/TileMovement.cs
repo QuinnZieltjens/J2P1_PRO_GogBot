@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using Unity.VisualScripting;
 
 namespace Game.Environment.Tile
 {
@@ -41,7 +42,7 @@ namespace Game.Environment.Tile
             newPos = Position + _relativePos;
 
             //loop through the tiles which are located at the moved to positions
-            foreach (MonoTile moveToTile in level.GetTileStack(newPos))
+            foreach (MonoTile moveToTile in level.GetTileStack(newPos).ToArray()) //uses .ToArray() to duplicate the collection so it's not modified whilst looping
                 moveToTile.Movement.Move(_relativePos); //move the tile with the same relative position as this tile
 
             //update the level

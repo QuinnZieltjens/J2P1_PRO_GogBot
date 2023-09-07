@@ -54,7 +54,6 @@ namespace Game.Environment.Tile
         /// <param name="_relativePos">the relative position from the current position which the tile is moving to</param>
         private bool CanMove(Vector2Int _relativePos)
         {
-
             bool canMove; //whether the current tile can move to the position
             List<MonoTile> movedToTiles; //the tiles located at the position trying to move to
             Vector2Int newPos = Position + _relativePos; //calculate the new position

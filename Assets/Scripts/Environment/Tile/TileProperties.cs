@@ -1,4 +1,6 @@
-namespace Game.Environment.Tiles
+using Unity.VisualScripting;
+
+namespace Game.Environment.Tile
 {
     public class TileProperties
     {
@@ -28,6 +30,12 @@ namespace Game.Environment.Tiles
             //uses an AND operator on all the bits within the enum using the filter,
             //if it is equal to the integer value in '_filter' then it passes the filter
             return (properties & _filter) == _filter;
+        }
+
+        public TileProperty GetValueRaw()
+        {
+            //returns the raw value of properties
+            return properties;
         }
     }
 }

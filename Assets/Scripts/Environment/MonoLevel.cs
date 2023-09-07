@@ -1,25 +1,23 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Game.Environment.Tiles;
+using Game.Environment.Tile;
 
 namespace Game.Environment
 {
-    public class Level
+    public class MonoLevel : MonoBehaviour
     {
-        private readonly Vector2Int levelSize;          //the set level size as an integer 2D array (readonly)
-        private readonly List<MonoTile>[,] objects;     //2D array of integer lists (readonly)
+        [SerializeField] private Vector2Int levelSize;  //the set level size as an 2D array (readonly)
+        public Vector3 Origin { get; private set; }     //the point in unity which is (0, 0)
+        private List<MonoTile>[,] objects;              //2D array of lists (readonly)
 
         //constructor, 
-        public Level(Vector2Int _levelSize)
+        private void Awake()
         {
             //check whether X and Y are not less than 0, throw an exception if they are
-            if (_levelSize.x < 0 || _levelSize.y < 0) //if either X or Y are below 0
+            if (levelSize.x < 0 || levelSize.y < 0) //if either X or Y are below 0
                 throw new ArgumentException("level size cannot be set to a number lower than 0\n" +
-                    $"Attempted to set set level size to: {_levelSize}");
-            
-            //set the level size to the value
-            levelSize = _levelSize;
+                    $"Attempted to set set level size to: {levelSize}");
 
             //define the 2D array
             objects = new List<MonoTile>[levelSize.x, levelSize.y];
@@ -34,6 +32,12 @@ namespace Game.Environment
                     objects[x, y] = new List<MonoTile>();
                 }
             }
+
+            //calculate the origin (where the (0, 0) point lies in unity)
+            Vector3 origin = transform.position;
+            origin.x -= levelSize.x / 2f;
+            origin.y -= levelSize.y / 2f;
+            Origin = origin;
         }
 
         /// <summary>
@@ -62,6 +66,13 @@ namespace Game.Environment
 
             //return the list
             return objects[x, y];
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.blue;
+            Vector3 cubeSize = new(levelSize.x, levelSize.y);
+            Gizmos.DrawWireCube(transform.position, cubeSize);
         }
     }
 }

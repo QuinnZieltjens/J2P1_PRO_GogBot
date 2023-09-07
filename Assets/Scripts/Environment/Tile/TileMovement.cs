@@ -2,16 +2,16 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
-namespace Game.Environment.Tiles
+namespace Game.Environment.Tile
 {
     public class TileMovement
     {
         public Vector2Int Position { get; private set; }
-        private Level level;
+        private MonoLevel level;
         private MonoTile tile;
 
 
-        public TileMovement(MonoTile _tile, Level _level, Vector2Int _position)
+        public TileMovement(MonoTile _tile, MonoLevel _level, Vector2Int _position)
         {
             tile = _tile;
             level = _level;
@@ -26,7 +26,6 @@ namespace Game.Environment.Tiles
         /// <exception cref="NullReferenceException"></exception>
         public void Move(Vector2Int _relativePos)
         {
-            Vector2Int movingPosition = Position;
             Vector2Int newPos;
 
             //if the tile can't move, early return

@@ -6,6 +6,7 @@ namespace Game.Environment.Tile
     public class MonoTileInput : MonoBehaviour
     {
         private MonoTile tile;
+        private bool lockInput = false;
 
         private void Awake()
         {
@@ -29,8 +30,15 @@ namespace Game.Environment.Tile
             if (vertical)
                 moveRelative.y = Convert.ToInt32(verticalAxis);
 
-            if (horizontal || vertical)
+            if ((horizontal || vertical) && lockInput == false)
+            {
                 tile.Movement.Move(moveRelative);
+                lockInput = true;
+            }
+            else if ((horizontal || vertical) == false)
+            {
+                lockInput = false;
+            }
         }
 
         private bool CanReadInput()

@@ -46,9 +46,9 @@ namespace Game.Environment
         public bool IsValidPosition(Vector2Int _position)
         {
             //if either x or y is out of bounds, return false
-            bool isValid = false; //not really necessary assignment, but is here for readability
-            isValid |= Util.IsRange(_position.x, 0, levelSize.x); //checks whether the X axis is in the range
-            isValid |= Util.IsRange(_position.y, 0, levelSize.y); //checks whether the Y axis is in the range
+            bool isValid = true; //not really necessary assignment, but is here for readability
+            isValid &= Util.IsRange(_position.x, 0, levelSize.x); //checks whether the X axis is in the range
+            isValid &= Util.IsRange(_position.y, 0, levelSize.y); //checks whether the Y axis is in the range
             return isValid; //return results
         }
 

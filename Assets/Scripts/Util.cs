@@ -4,20 +4,20 @@ namespace Game
 {
     internal static class Util
     {
-        public static int Range(int _value, int _inclMin, int _inclMax)
+        public static int Range(int _value, int _inclMin, int _exclMax)
         {
-            if (IsRange(_value, _inclMin, _inclMax))
+            if (IsRange(_value, _inclMin, _exclMax))
                 return _value;
 
-            throw new ArgumentOutOfRangeException($"value '{_value}' is out of the bounds, '{_inclMin}' to '{_inclMax}'");
+            throw new ArgumentOutOfRangeException($"value '{_value}' is out of the bounds, '{_inclMin}' to '{_exclMax}'");
         }
 
-        public static int UpperLimit(int _value, int _inclMax)
+        public static int UpperLimit(int _value, int _exclMax)
         {
-            if (IsMax(_value, _inclMax))
+            if (IsMax(_value, _exclMax))
                 return _value;
 
-            throw new ArgumentOutOfRangeException($"value '{_value}' is out of bounds, (max = '{_inclMax}')");
+            throw new ArgumentOutOfRangeException($"value '{_value}' is out of bounds, (max = '{_exclMax}')");
         }
 
         public static int LowerLimit(int _value, int _inclMin)
@@ -30,7 +30,7 @@ namespace Game
 
 
         public static bool IsMin(int _value, int _inclMin) => _value >= _inclMin;
-        public static bool IsMax(int _value, int _inclMax) => _value <= _inclMax;
-        public static bool IsRange(int _value, int _inclMin, int _inclMax) => IsMin(_value, _inclMin) && IsMax(_value, _inclMax);
+        public static bool IsMax(int _value, int _exclMax) => _value < _exclMax;
+        public static bool IsRange(int _value, int _inclMin, int _exclMax) => IsMin(_value, _inclMin) && IsMax(_value, _exclMax);
     }
 }

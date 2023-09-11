@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using System;
 using UnityEngine;
-using Unity.VisualScripting;
 
 namespace Game.Environment.Tile
 {
@@ -25,11 +23,9 @@ namespace Game.Environment.Tile
         }
 
         /// <summary>
-        /// moves the tile 
+        /// moves the tile
         /// </summary>
-        /// <param name="_currentPos"></param>
-        /// <param name="_relativePos"></param>
-        /// <exception cref="NullReferenceException"></exception>
+        /// <param name="_relativePos">the relative position from the tile to which it must move</param>
         public void Move(Vector2Int _relativePos)
         {
             Vector2Int newPos;
@@ -56,11 +52,10 @@ namespace Game.Environment.Tile
         /// <summary>
         /// checks whether the tile can move <paramref name="_relativePos"/>
         /// </summary>
-        /// <param name="_currentPos">the current position of the tile</param>
         /// <param name="_relativePos">the relative position from the current position which the tile is moving to</param>
         private bool CanMove(Vector2Int _relativePos)
         {
-            bool canMove; //whether the current tile can move to the position
+            bool canMove; //whether the current tile can move    to the position
             List<MonoTile> movedToTiles; //the tiles located at the position trying to move to
             Vector2Int newPos = Position + _relativePos; //calculate the new position
 
@@ -72,7 +67,7 @@ namespace Game.Environment.Tile
             canMove = true; //initially assumes the tile can move
 
             //loops through all the tiles at the new position (skips this step if there are none)
-            foreach (MonoTile movedToTile in movedToTiles)
+            foreach (MonoTile movedToTile in movedToTiles) 
             {
                 //if the tile is movable, set canMove to that tile moving's result.
                 if (movedToTile.Properties.CheckProperties(TileProperty.Movable))

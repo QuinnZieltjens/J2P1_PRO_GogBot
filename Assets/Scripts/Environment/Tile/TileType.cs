@@ -1,6 +1,6 @@
 namespace Game.Environment.Tile.ScriptTiles
 {
-    public class Temp
+    public class TileType
     {
     }
 }

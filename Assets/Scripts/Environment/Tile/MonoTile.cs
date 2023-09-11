@@ -9,7 +9,7 @@ namespace Game.Environment.Tile
 
         public TileMovement Movement { get; private set; }
         public TileProperties Properties { get; private set; }
-        private MonoLevel level;
+        protected MonoLevel level;
 
         private void Awake()
         {

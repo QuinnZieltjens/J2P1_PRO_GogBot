@@ -37,7 +37,7 @@ namespace Game.Environment.Tile.ScriptTiles
 
         private bool CheckPosition<T>(Vector2Int _rPos)
         {
-            List<MonoTile> tileStack = level.GetTileStack(_rPos + Movement.Position); //gets the tile stack at the position
+            List<MonoTile> tileStack = level.GetTileStack(_rPos + Position); //gets the tile stack at the position
             return tileStack.OfType<T>().Any(); //filters the list for types and checks if there are any items in the list
         }
     }

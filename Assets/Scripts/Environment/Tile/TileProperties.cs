@@ -1,19 +1,34 @@
 namespace Game.Environment.Tile
 {
-    public class TileProperties
+    public struct TileProperties
     {
-        private TileProperty properties = TileProperty.None;
+        /// <summary>
+        /// readonly, stores the raw integer value of the properties
+        /// </summary>
+        public TileProperty Properties { get; private set; }
 
+        //constructor
+        public TileProperties(TileProperty _properties = TileProperty.None)
+        {
+            Properties = _properties;
+        }
+
+        /// <summary>
+        /// adds <paramref name="_filter"/> to the stored properties
+        /// </summary>
         public void AddProperties(TileProperty _filter)
         {
             //uses an OR operator on all the bits within the enum using the filter
-            properties |= _filter;
+            Properties |= _filter;
         }
 
+        /// <summary>
+        /// removes <paramref name="_filter"/> from the stored properties
+        /// </summary>
         public void RemoveProperties(TileProperty _filter)
         {
-            //inverts the filter through using an AND operator
-            properties &= ~_filter;
+            //inverts the filter and removes it using an AND operator
+            Properties &= ~_filter;
         }
 
         /// <summary>
@@ -23,17 +38,11 @@ namespace Game.Environment.Tile
         /// <returns>
         /// <see cref="bool"/> which is <see langword="true"/> whether <see cref="properties"/> matches with <paramref name="_filter"/>
         /// </returns>
-        public bool CheckProperties(TileProperty _filter)
+        public readonly bool CheckProperties(TileProperty _filter)
         {
             //uses an AND operator on all the bits within the enum using the filter,
             //if it is equal to the integer value in '_filter' then it passes the filter
-            return (properties & _filter) == _filter;
-        }
-
-        public TileProperty GetValueRaw()
-        {
-            //returns the raw value of properties
-            return properties;
+            return (Properties & _filter) == _filter;
         }
     }
 }

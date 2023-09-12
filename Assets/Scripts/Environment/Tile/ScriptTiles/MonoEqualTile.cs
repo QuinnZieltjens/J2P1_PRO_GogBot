@@ -6,8 +6,6 @@ namespace Game.Environment.Tile.ScriptTiles
 {
     public class MonoEqualTile : MonoTile
     {
-        private bool isActive;
-
         private void Awake()
         {
             //add the movable property to this tile

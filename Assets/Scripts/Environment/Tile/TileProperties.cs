@@ -1,5 +1,3 @@
-using Unity.VisualScripting;
-
 namespace Game.Environment.Tile
 {
     public class TileProperties

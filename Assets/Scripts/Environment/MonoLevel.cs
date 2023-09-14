@@ -3,16 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using Game.Environment.Tile;
 using Game.Utility;
+using Game.Environment.Tile.Data;
 
 namespace Game.Environment
 {
     public class MonoLevel : MonoBehaviour
     {
-        [SerializeField] private Vector2Int levelSize;  //the set level size as an 2D array (readonly)
-        public Vector3 Origin { get; private set; }     //the point in unity which is (0, 0)
-        private List<MonoTile>[,] objects;              //2D array of lists (readonly)
+        [SerializeField] private Vector2Int levelSize;          //the set level size as an 2D array (readonly)
+        private List<MonoTile>[,] objects;                      //2D array of lists (readonly)
 
-        //constructor, 
+        /// <summary>
+        /// where in unity's coordinates (0, 0) in the level lies
+        /// </summary>
+        public Vector3 Origin
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// stores all tile types and it's properties
+        /// </summary>
+        public Dictionary<string, TileType> TileTypes
+        {
+            get;
+            private set;
+        }
+
+        //called once the script is being loaded
         private void Awake()
         {
             //check whether X and Y are not less than 0, throw an exception if they are
@@ -20,8 +38,9 @@ namespace Game.Environment
                 throw new ArgumentException("level size cannot be set to a number lower than 0\n" +
                     $"Attempted to set set level size to: {levelSize}");
 
-            //define the 2D array
-            objects = new List<MonoTile>[levelSize.x, levelSize.y];
+            //define collection
+            TileTypes = new Dictionary<string, TileType>(); //the dictionary which stores all types with the identifier
+            objects = new List<MonoTile>[levelSize.x, levelSize.y]; //2D level array (this holds the currents state of the level)
 
             //loop through the X axis
             for (int x = 0; x < levelSize.x; x++)

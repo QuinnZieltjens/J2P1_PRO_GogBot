@@ -1,16 +1,16 @@
-namespace Game.Environment.Tile
+namespace Game.Environment.Tile.Data
 {
-    public struct TileProperties
+    public class TileProperties
     {
         /// <summary>
         /// readonly, stores the raw integer value of the properties
         /// </summary>
-        public TileProperty Properties { get; private set; }
+        public TileProperty Raw { get; private set; }
 
         //constructor
         public TileProperties(TileProperty _properties = TileProperty.None)
         {
-            Properties = _properties;
+            Raw = _properties;
         }
 
         /// <summary>
@@ -19,7 +19,7 @@ namespace Game.Environment.Tile
         public void AddProperties(TileProperty _filter)
         {
             //uses an OR operator on all the bits within the enum using the filter
-            Properties |= _filter;
+            Raw |= _filter;
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace Game.Environment.Tile
         public void RemoveProperties(TileProperty _filter)
         {
             //inverts the filter and removes it using an AND operator
-            Properties &= ~_filter;
+            Raw &= ~_filter;
         }
 
         /// <summary>
@@ -38,11 +38,11 @@ namespace Game.Environment.Tile
         /// <returns>
         /// <see cref="bool"/> which is <see langword="true"/> whether <see cref="properties"/> matches with <paramref name="_filter"/>
         /// </returns>
-        public readonly bool CheckProperties(TileProperty _filter)
+        public bool CheckProperties(TileProperty _filter)
         {
             //uses an AND operator on all the bits within the enum using the filter,
             //if it is equal to the integer value in '_filter' then it passes the filter
-            return (Properties & _filter) == _filter;
+            return (Raw & _filter) == _filter;
         }
     }
 }

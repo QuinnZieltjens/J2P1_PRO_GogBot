@@ -4,16 +4,11 @@ using UnityEngine;
 
 namespace Game.Environment.Tile.ScriptTiles
 {
-    public class MonoEqualTile : MonoTile
+    public class MonoScriptEqualTile : MonoScriptTile
     {
-        private void Awake()
+        protected override void Update()
         {
-            //add the movable property to this tile
-            Properties.AddProperties(TileProperty.Movable);
-        }
-
-        private void Update()
-        {
+            base.Update();
             TryWriteProperty(Vector2Int.up);
             TryWriteProperty(Vector2Int.left);
         }
@@ -23,18 +18,25 @@ namespace Game.Environment.Tile.ScriptTiles
             if (CheckPositions(_rTypePos) == false)
                 return false;
 
-            //assignment logic
+            MonoScriptTypeTile typeTile = (MonoScriptTypeTile)level.GetTileStack(_rTypePos + Position)[0];
+            MonoScriptPropertyTile propertyTile = (MonoScriptPropertyTile)level.GetTileStack(-_rTypePos + Position)[0];
+
+            typeTile.StoredType.TileProperties.AddProperties(propertyTile.Properties.Raw);
 
             return true;
         }
 
         private bool CheckPositions(Vector2Int _rTypePos)
         {
-            return CheckPosition<MonoTile>(_rTypePos) && CheckPosition<MonoTile>(_rTypePos * -1);
+            return CheckPosition<MonoScriptTypeTile>(_rTypePos) && CheckPosition<MonoScriptPropertyTile>(_rTypePos * -1);
         }
 
         private bool CheckPosition<T>(Vector2Int _rPos)
         {
+            //if the given position is even valid
+            if (level.IsValidPosition(_rPos + Position) == false)
+                return false;
+
             List<MonoTile> tileStack = level.GetTileStack(_rPos + Position); //gets the tile stack at the position
             return tileStack.OfType<T>().Any(); //filters the list for types and checks if there are any items in the list
         }

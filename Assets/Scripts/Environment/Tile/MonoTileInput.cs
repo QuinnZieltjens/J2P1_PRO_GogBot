@@ -1,3 +1,4 @@
+using Game.Environment.Tile.Data;
 using System;
 using UnityEngine;
 
@@ -44,7 +45,7 @@ namespace Game.Environment.Tile
         private bool CanReadInput()
         {
             bool canMove = true; //initially assume we can move
-            canMove &= tile.Properties.CheckProperties(TileProperty.Player); //check whether the tile is a player
+            canMove &= tile.Type.TileProperties.CheckProperties(TileProperty.Player); //check whether the tile is a player
             return canMove; //return results
         }
     }

@@ -1,3 +1,4 @@
+using Game.Environment.Tile.Data;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -68,14 +69,14 @@ namespace Game.Environment.Tile
             foreach (MonoTile movedToTile in movedToTiles) 
             {
                 //if the tile is movable, set canMove to that tile moving's result.
-                if (movedToTile.Properties.CheckProperties(TileProperty.Movable))
+                if (movedToTile.Type.TileProperties.CheckProperties(TileProperty.Movable))
                 {
                     canMove &= movedToTile.Movement.CanMove(_relativePos); //if any tile can't move, canMove = false
                     continue; //continue the loop
                 }
 
                 //checks whether the tile collides.
-                if (movedToTile.Properties.CheckProperties(TileProperty.Collides))
+                if (movedToTile.Type.TileProperties.CheckProperties(TileProperty.Collides))
                     return false; //return false; tile can't move no matter what
             }
 

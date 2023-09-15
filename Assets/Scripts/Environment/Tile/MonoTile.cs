@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using Game.Environment.Tile.Data;
+using System.Collections.Generic;
 
 namespace Game.Environment.Tile
 {
@@ -8,8 +9,9 @@ namespace Game.Environment.Tile
     {
         [SerializeField] private string typeIdentifier;         //the identifier to find the tile type with
         [SerializeField] private Vector2Int levelPosition;      //the level position of the tile
-        private SpriteRenderer spriteRenderer;
-        protected MonoLevel level;  //stores the level
+        private SpriteRenderer spriteRenderer;  //
+        private MonoTileInput tileInput;        //handles the input system
+        protected MonoLevel level;              //stores the level
 
         /// <summary>
         /// contains the different properties of the tile
@@ -58,13 +60,28 @@ namespace Game.Environment.Tile
         protected virtual void Awake()
         {
             level = FindObjectOfType<MonoLevel>(); //find the level object
+            
             spriteRenderer = GetComponent<SpriteRenderer>();
-            SetType(typeIdentifier);
+            tileInput = GetComponent<MonoTileInput>();
+            
+            SetType(typeIdentifier); //initialise type
+
             Movement = new TileMovement(this, level); //initialize tile movement class
         }
 
-        //called upon every frame
-        protected virtual void Update()
+        //called before the first frame
+        protected virtual void Start()
+        {
+            //update the level once on start
+            OnInputUpdate();
+
+            MonoTileInput.OnInput += OnInputUpdate; //add OnInputUpdate as event listener
+        }
+
+        /// <summary>
+        /// called every time the player gave input
+        /// </summary>
+        protected virtual void OnInputUpdate()
         {
             UpdateUnityPosition(level.Origin); //set the correct unity position
 
@@ -81,7 +98,13 @@ namespace Game.Environment.Tile
         {
             float x = Position.x; //implicit cast: X from int to float
             float y = Position.y; //implicit cast: Y from int to float
-            transform.position = new Vector3(x, y) + _origin; //set the object's unity position, correct for the level origin
+            float z;
+
+            List<MonoTile> tileStack = level.GetTileStack(Position);
+            int index = tileStack.IndexOf(this);
+            z = tileStack.Count - index;
+
+            transform.position = new Vector3(x, y, z) + _origin; //set the object's unity position, correct for the level origin
         }
     }
 }

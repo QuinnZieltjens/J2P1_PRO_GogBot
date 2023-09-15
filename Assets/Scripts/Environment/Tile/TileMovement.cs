@@ -38,8 +38,10 @@ namespace Game.Environment.Tile
 
             //loop through the tiles which are located at the moved to positions
             foreach (MonoTile moveToTile in level.GetTileStack(newPos).ToArray()) //uses .ToArray() to duplicate the collection so it's not modified whilst looping
-                moveToTile.Movement.Move(_relativePos); //move the tile with the same relative position as this tile
-
+            {
+                if (moveToTile.Type.TileProperties.CheckProperties(TileProperty.Movable)) //check if the tile moved to is a movable tile
+                    moveToTile.Movement.Move(_relativePos); //move the tile with the same relative position as this tile
+            }
             //update the level
             level.GetTileStack(tile.Position).Remove(tile); //remove the current position from the tile stack
             level.GetTileStack(newPos).Add(tile); //add the tile at the new position to the tile stack
@@ -66,7 +68,7 @@ namespace Game.Environment.Tile
             canMove = true; //initially assumes the tile can move
 
             //loops through all the tiles at the new position (skips this step if there are none)
-            foreach (MonoTile movedToTile in movedToTiles) 
+            foreach (MonoTile movedToTile in movedToTiles)
             {
                 //if the tile is movable, set canMove to that tile moving's result.
                 if (movedToTile.Type.TileProperties.CheckProperties(TileProperty.Movable))

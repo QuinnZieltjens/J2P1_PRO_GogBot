@@ -33,9 +33,9 @@ namespace Game.Environment.Tile.ScriptTiles
         }
 
         //called on every frame
-        protected override void Update()
+        protected override void OnInputUpdate()
         {
-            base.Update(); //call parent update
+            base.OnInputUpdate(); //call parent update
 
             //don't bother if this is a system type
             if (StoredType.TileProperties.CheckProperties(TileProperty.System))

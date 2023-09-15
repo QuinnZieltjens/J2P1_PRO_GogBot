@@ -6,9 +6,9 @@ namespace Game.Environment.Tile.ScriptTiles
 {
     public class MonoScriptEqualTile : MonoScriptTile
     {
-        protected override void Update()
+        protected override void OnInputUpdate()
         {
-            base.Update();
+            base.OnInputUpdate();
             TryWriteProperty(Vector2Int.up);
             TryWriteProperty(Vector2Int.left);
         }

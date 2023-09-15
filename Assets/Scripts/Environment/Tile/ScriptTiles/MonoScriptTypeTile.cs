@@ -42,7 +42,7 @@ namespace Game.Environment.Tile.ScriptTiles
                 return;
 
             //clear properties
-            StoredType.TileProperties.RemoveProperties(TileProperty.All);
+            StoredType.TileProperties.RemoveProperties(TileProperty.Everything);
         }
     }
 }

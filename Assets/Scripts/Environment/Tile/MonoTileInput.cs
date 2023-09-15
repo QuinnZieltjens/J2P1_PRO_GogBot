@@ -27,17 +27,16 @@ namespace Game.Environment.Tile
             bool horizontal = horizontalAxis != 0;
             bool vertical = verticalAxis != 0;
 
+            if (eventLock == false) //if the event's InputEvent is locked
+            {
+                OnInput?.Invoke(); //invoke the InputEvent
+                eventLock = true; //lock the input from calling the event
+            }
 
             if ((horizontal || vertical) && lockInput == false)
             {
                 MoveTile(new Vector2(horizontalAxis, verticalAxis));
                 lockInput = true; //lock the input
-
-                if (eventLock == false) //if the event's InputEvent is locked
-                {
-                    OnInput?.Invoke(); //invoke the InputEvent
-                    eventLock = true; //lock the input from calling the event
-                }
             }
             else if ((horizontal || vertical) == false) //if both horizontal and vertical has no input
             {

@@ -23,23 +23,38 @@ namespace Game.Environment.Tile
             float verticalAxis = Input.GetAxisRaw("Vertical");
             bool horizontal = horizontalAxis != 0;
             bool vertical = verticalAxis != 0;
-            Vector2Int moveRelative = Vector2Int.zero;
 
-            if (horizontal)
-                moveRelative.x = Convert.ToInt32(horizontalAxis);
-
-            if (vertical)
-                moveRelative.y = Convert.ToInt32(verticalAxis);
 
             if ((horizontal || vertical) && lockInput == false)
             {
-                tile.Movement.Move(moveRelative);
-                lockInput = true;
+                MoveTile(new Vector2(horizontalAxis, verticalAxis));
+
+                lockInput = true; //lock the input
             }
-            else if ((horizontal || vertical) == false)
+            else if ((horizontal || vertical) == false) //if both horizontal and vertical has no input
             {
-                lockInput = false;
+                lockInput = false; //unlock input
             }
+        }
+
+        /// <summary>
+        /// moves the tile using the relative vector <paramref name="_direction"/>, first moves horizontally, then vertically
+        /// </summary>
+        private void MoveTile(Vector2 _direction)
+        {
+            //split vector into integers
+            int x = Convert.ToInt32(_direction.x);
+            int y = Convert.ToInt32(_direction.y);
+
+            //make two new vectors for the different axes
+            Vector2Int horizontal = new(x, 0);
+            Vector2Int vertical = new(0, y);
+
+            if (horizontal != Vector2Int.zero) //if the horizontal axis contains a value
+                tile.Movement.Move(horizontal); //move the tile
+
+            if (vertical != Vector2Int.zero) //if the vertical axis contains a value
+                tile.Movement.Move(vertical); //move the tile
         }
 
         private bool CanReadInput()

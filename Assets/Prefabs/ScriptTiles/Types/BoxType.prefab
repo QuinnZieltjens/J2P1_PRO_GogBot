@@ -74,8 +74,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 69a3410aa51e1244a99319423b9c72db, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 1467885689, guid: 7535c70ddc139be4bb70c4618284be9f, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -100,4 +100,4 @@ MonoBehaviour:
   typeIdentifier: Script
   levelPosition: {x: 0, y: 0}
   storedType: Box
-  typeSprite: {fileID: 21300000, guid: 69a3410aa51e1244a99319423b9c72db, type: 3}
+  typeSprite: {fileID: 1960517451, guid: 7535c70ddc139be4bb70c4618284be9f, type: 3}

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7650066006175109995}
   - component: {fileID: 5940139483462824121}
   - component: {fileID: 7769418355805716709}
+  - component: {fileID: 3733076913594112462}
   m_Layer: 0
   m_Name: WinProperty
   m_TagString: Untagged
@@ -100,3 +101,15 @@ MonoBehaviour:
   typeIdentifier: Script
   levelPosition: {x: 0, y: 0}
   writeProperties: 8
+--- !u!114 &3733076913594112462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4220073537106744720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f3531dad57b8034b88c76e8a6216302, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

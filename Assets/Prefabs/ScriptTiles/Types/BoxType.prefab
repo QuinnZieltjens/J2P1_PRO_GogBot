@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3739695377641670067}
   - component: {fileID: -3470561379061011051}
   - component: {fileID: -1126750569596524528}
+  - component: {fileID: -6415100310331202433}
   m_Layer: 0
   m_Name: BoxType
   m_TagString: Untagged
@@ -101,3 +102,15 @@ MonoBehaviour:
   levelPosition: {x: 0, y: 0}
   storedType: Box
   typeSprite: {fileID: 1960517451, guid: 7535c70ddc139be4bb70c4618284be9f, type: 3}
+--- !u!114 &-6415100310331202433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8043915451862778230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f3531dad57b8034b88c76e8a6216302, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

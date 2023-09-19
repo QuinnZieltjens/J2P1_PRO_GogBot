@@ -9,8 +9,7 @@ namespace Game.Environment.Tile
     {
         [SerializeField] private string typeIdentifier;         //the identifier to find the tile type with
         [SerializeField] private Vector2Int levelPosition;      //the level position of the tile
-        private SpriteRenderer spriteRenderer;  //
-        private MonoTileInput tileInput;        //handles the input system
+        private SpriteRenderer spriteRenderer;  //renders the tile's sprite
         protected MonoLevel level;              //stores the level
 
         /// <summary>
@@ -59,11 +58,11 @@ namespace Game.Environment.Tile
         //called when the script is loaded
         protected virtual void Awake()
         {
-            level = FindObjectOfType<MonoLevel>(); //find the level object
-            
+            if (level == null) //if level is null
+                level = FindObjectOfType<MonoLevel>(); //find the level object
+
             spriteRenderer = GetComponent<SpriteRenderer>();
-            tileInput = GetComponent<MonoTileInput>();
-            
+
             SetType(typeIdentifier); //initialise type
 
             Movement = new TileMovement(this, level); //initialize tile movement class
@@ -72,18 +71,19 @@ namespace Game.Environment.Tile
         //called before the first frame
         protected virtual void Start()
         {
-            //update the level once on start
             OnInputUpdate();
 
-            MonoTileInput.OnInput += OnInputUpdate; //add OnInputUpdate as event listener
+            MonoTileInput tileInput = GetComponent<MonoTileInput>();
+            tileInput.InputUpdate.Event += OnInputUpdate; //add OnInputUpdate as event listener
         }
+
 
         /// <summary>
         /// called every time the player gave input
         /// </summary>
         protected virtual void OnInputUpdate()
         {
-            UpdateUnityPosition(level.Origin); //set the correct unity position
+            UpdateUnityPosition(); //set the correct unity position
 
             //if this is a system type, don't bother with sprite checks
             if (Type.TileProperties.CheckProperties(TileProperty.System))
@@ -94,7 +94,10 @@ namespace Game.Environment.Tile
                 spriteRenderer.sprite = Type.Sprite;
         }
 
-        private void UpdateUnityPosition(Vector3 _origin)
+        /// <summary>
+        /// updates the gameObject's position in unity from the level position
+        /// </summary>
+        private void UpdateUnityPosition()
         {
             float x = Position.x; //implicit cast: X from int to float
             float y = Position.y; //implicit cast: Y from int to float
@@ -104,7 +107,10 @@ namespace Game.Environment.Tile
             int index = tileStack.IndexOf(this);
             z = tileStack.Count - index;
 
-            transform.position = new Vector3(x, y, z) + _origin; //set the object's unity position, correct for the level origin
+            transform.position = new Vector3(x, y, z) + level.Origin; //set the object's unity position, correct for the level origin
         }
+
+        /// <inheritdoc cref="TileProperties.CheckProperties(TileProperty)"/>
+        public bool CheckProperties(TileProperty _filter) => Type.TileProperties.CheckProperties(_filter);
     }
 }

@@ -13,13 +13,12 @@ namespace Game.Environment.Tile.ScriptTiles
         //called before the first frame
         protected override void Awake()
         {
-            //find level if level is null
-            if (level == null)
-                level = FindObjectOfType<MonoLevel>();
+            level = FindObjectOfType<MonoLevel>();
 
             if (level.TileTypes.ContainsKey(storedType)) //if the level already contains this type
             {
                 StoredType = level.TileTypes[storedType]; //sets the type to the type contained in the level
+                base.Awake(); //call the parent's awake function
                 return; //early return
             }
 

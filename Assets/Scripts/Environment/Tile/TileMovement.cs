@@ -1,4 +1,5 @@
 using Game.Environment.Tile.Data;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -39,7 +40,7 @@ namespace Game.Environment.Tile
             //loop through the tiles which are located at the moved to positions
             foreach (MonoTile moveToTile in level.GetTileStack(newPos).ToArray()) //uses .ToArray() to duplicate the collection so it's not modified whilst looping
             {
-                if (moveToTile.Type.TileProperties.CheckProperties(TileProperty.Movable)) //check if the tile moved to is a movable tile
+                if (moveToTile.CheckProperties(TileProperty.Movable)) //check if the tile moved to is a movable tile
                     moveToTile.Movement.Move(_relativePos); //move the tile with the same relative position as this tile
             }
             //update the level
@@ -70,16 +71,29 @@ namespace Game.Environment.Tile
             //loops through all the tiles at the new position (skips this step if there are none)
             foreach (MonoTile movedToTile in movedToTiles)
             {
+                //if we can't move at any point within the loop, break
+                if (canMove == false)
+                    break;
+
+                //if the current tile and the moved to tile are players
+                if (tile.CheckProperties(TileProperty.Player) && movedToTile.CheckProperties(TileProperty.Player))
+                {
+                    canMove &= movedToTile.Movement.CanMove(_relativePos); //check whether this player can move
+                    continue;
+                }
+
                 //if the tile is movable, set canMove to that tile moving's result.
-                if (movedToTile.Type.TileProperties.CheckProperties(TileProperty.Movable))
+                if (movedToTile.CheckProperties(TileProperty.Movable))
                 {
                     canMove &= movedToTile.Movement.CanMove(_relativePos); //if any tile can't move, canMove = false
                     continue; //continue the loop
                 }
 
-                //checks whether the tile collides.
-                if (movedToTile.Type.TileProperties.CheckProperties(TileProperty.Collides))
-                    return false; //return false; tile can't move no matter what
+                //if the moved to tile collides, set canMove to false
+                if (movedToTile.CheckProperties(TileProperty.Collides))
+                {
+                    canMove = false;
+                }
             }
 
             //return the results

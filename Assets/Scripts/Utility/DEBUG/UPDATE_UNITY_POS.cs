@@ -1,3 +1,4 @@
+#if DEBUG
 using Game.Environment;
 using Game.Environment.Tile;
 using UnityEngine;
@@ -29,3 +30,4 @@ namespace Game.Utility.DEBUG
         }
     }
 }
+#endif

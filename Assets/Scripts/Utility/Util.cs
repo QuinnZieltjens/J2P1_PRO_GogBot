@@ -1,9 +1,16 @@
 using System;
+using UnityEngine;
 
 namespace Game.Utility
 {
     internal static class Util
     {
+        public static void RunIfKeyDown(KeyCode _key, Action _action)
+        {
+            if (Input.GetKeyDown(_key))
+                _action.Invoke();
+        }
+
         public static int Range(int _value, int _inclMin, int _exclMax)
         {
             if (IsRange(_value, _inclMin, _exclMax))

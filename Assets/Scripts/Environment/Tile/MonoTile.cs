@@ -52,6 +52,17 @@ namespace Game.Environment.Tile
         /// </summary>
         public void SetType(string _typeIdentifier)
         {
+            //if the level doesn't contain this type, add it
+            if (level.TileTypes.ContainsKey(_typeIdentifier) == false)
+            { 
+                //create a new type using the sprite given in the sprite renderer
+                TileType type = new(spriteRenderer.sprite);   
+
+                //add the type to the level
+                level.TileTypes.Add(_typeIdentifier, type);
+            }
+
+            //get the type from the level and store it as this type
             Type = level.TileTypes[_typeIdentifier];
         }
 

@@ -1,4 +1,5 @@
 using Game.Utility;
+using System.Linq;
 using UnityEngine;
 
 namespace Game
@@ -15,9 +16,7 @@ namespace Game
         private void Update()
         {
             Util.RunIfKeyDown(KeyCode.R, sceneSwitching.ReloadScene);
-
-            if (Input.GetKey(KeyCode.LeftShift))
-                Util.RunIfKeyDown(KeyCode.N, sceneSwitching.NextScene);
+            Util.RunIfKeyDown(KeyCode.N, sceneSwitching.NextScene);
         }
     }
 }

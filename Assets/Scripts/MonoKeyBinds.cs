@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game
 {
-    public class KeyBinds : MonoBehaviour
+    public class MonoKeyBinds : MonoBehaviour
     {
         SceneSwitching sceneSwitching;
 

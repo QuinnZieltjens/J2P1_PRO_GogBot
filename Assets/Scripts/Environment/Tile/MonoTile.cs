@@ -43,8 +43,8 @@ namespace Game.Environment.Tile
         /// </summary>
         public Vector2Int Position
         {
-            get => levelPosition;
-            set => levelPosition = level.IsValidPosition(value) ? value : throw new ArgumentOutOfRangeException("this is not a valid position within the level");
+            [SerializeField] get => levelPosition;
+            [SerializeField] set => levelPosition = level.IsValidPosition(value) ? value : throw new ArgumentOutOfRangeException("this is not a valid position within the level");
         }
 
         /// <summary>

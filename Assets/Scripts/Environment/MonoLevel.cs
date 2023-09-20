@@ -12,6 +12,11 @@ namespace Game.Environment
         [SerializeField] private Vector2Int levelSize;          //the set level size as an 2D array (readonly)
         private List<MonoTile>[,] objects;                      //2D array of lists (readonly)
 
+        public Vector2Int LevelSize
+        {
+            [SerializeField] get => levelSize;
+        }
+
         /// <summary>
         /// where in unity's coordinates (0, 0) in the level lies
         /// </summary>

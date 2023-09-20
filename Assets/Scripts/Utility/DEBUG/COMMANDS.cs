@@ -1,9 +1,9 @@
 using System;
 using UnityEngine;
 
-namespace Game.Utility
+namespace Game.Utility.DEBUG
 {
-    public class DEBUG_COMMANDS : MonoBehaviour
+    public class COMMANDS : MonoBehaviour
     {
         SceneSwitching sceneSwitching;
 

@@ -19,14 +19,11 @@ namespace Game.Utility.DEBUG
             Vector3 origin = level.transform.position;
             origin.x -= level.LevelSize.x / 2f;
             origin.y -= level.LevelSize.y / 2f;
-            print($"origin: {origin}");
-            print($"Position: {tile.Position}");
 
             float x = tile.Position.x; //implicit cast: X from int to float
             float y = tile.Position.y; //implicit cast: X from int to float
 
             transform.position = new Vector3(x, y) + origin;
-            print($"Final: {transform.position}");
         }
     }
 }

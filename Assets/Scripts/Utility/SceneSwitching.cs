@@ -5,6 +5,7 @@ namespace Game.Utility
 {
     public class SceneSwitching : MonoBehaviour
     {
+        private const int SceneCount = 5;
         private int sceneIndex = 0; //the index of the currently active scene
 
 
@@ -26,16 +27,16 @@ namespace Game.Utility
         /// </summary>
         public void NextScene()
         {
-            sceneIndex++; //increase the index
+            sceneIndex++; //increase the scene index by one
 
-            if (sceneIndex >= SceneManager.sceneCountInBuildSettings) //if the sceneIndex doesn't exceed the amount of scenes built
+            if (sceneIndex >= SceneCount) //if the sceneIndex doesn't exceed the amount of scenes built
             {
                 Application.Quit(); //quit the application
                 return; //early return
             }
 
             //reload the scene
-            ReloadScene();
+            ReloadScene(); //increase the index
         }
 
         /// <summary>

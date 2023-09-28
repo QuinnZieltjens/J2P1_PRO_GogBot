@@ -1,5 +1,4 @@
 using Game.Utility;
-using System.Linq;
 using UnityEngine;
 
 namespace Game
@@ -10,6 +9,8 @@ namespace Game
 
         private void Awake()
         {
+            Cursor.visible = false; //hide the cursor
+
             sceneSwitching = FindObjectOfType<SceneSwitching>();
         }
 
